@@ -1,0 +1,120 @@
+
+        :root {
+            --bg-color: #0a0f1e;
+            --card-bg: #161e31;
+            --primary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --danger-red: #ef4444;
+            --warning-amber: #f59e0b;
+            --text-white: #f8fafc;
+            --text-gray: #94a3b8;
+            --royal-gold: #fbbf24;
+            --surface-glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #1e293b 0%, #0a0f1e 100%);
+            color: var(--text-white);
+            margin: 0; padding: 0; direction: rtl;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 500px; margin: 0 auto; padding: 20px; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        .view { display: none; animation: fadeIn 0.4s ease-out; }
+        .view.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header { text-align: center; padding: 30px 0; }
+        header h1 { 
+            font-size: 2rem; 
+            background: linear-gradient(to bottom, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+        }
+
+        .game-menu { display: grid; gap: 15px; margin-top: 10px; }
+        .game-btn {
+            background: linear-gradient(145deg, #1e293b, #111827);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 28px; border-radius: 20px; color: white; font-size: 1.4rem;
+            font-weight: bold; text-align: center; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        .game-btn:active { transform: scale(0.96); opacity: 0.9; }
+        .game-btn:hover { border-color: var(--primary-blue); box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
+        
+        .history-btn {
+            background: var(--surface-glass);
+            border: 1px dashed rgba(148, 163, 184, 0.4);
+            color: var(--text-gray);
+            margin-top: 20px;
+            padding: 18px;
+            font-size: 1.1rem;
+        }
+
+        .section-box { 
+            background: var(--surface-glass); 
+            border-radius: 16px; 
+            padding: 18px; 
+            margin-bottom: 20px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            backdrop-filter: blur(10px);
+        }
+        
+        label { display: block; margin-bottom: 12px; color: var(--text-gray); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+        
+        .mode-container { display: flex; background: #0f172a; padding: 5px; border-radius: 12px; gap: 5px; }
+        .mode-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; background: transparent; color: var(--text-gray); cursor: pointer; font-weight: bold; transition: all 0.3s ease; }
+        .mode-btn.active { background: var(--primary-blue); color: white; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
+
+        input, select { background: #0f172a; border: 1px solid rgba(255,255,255,0.1); color: white; padding: 14px; border-radius: 12px; width: 100%; font-size: 1rem; transition: all 0.3s; }
+        input:focus { border-color: var(--primary-blue); background: #161e31; outline: none; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+
+        .add-player-box { display: flex; gap: 10px; margin-bottom: 10px; }
+        .btn-plus { background: var(--primary-blue); color: white; border: none; width: 60px; border-radius: 12px; font-size: 1.8rem; cursor: pointer; transition: 0.2s; }
+
+        .player-card { background: linear-gradient(to bottom left, var(--card-bg), #111827); border-radius: 24px; padding: 20px; margin-bottom: 18px; border-right: 5px solid var(--primary-blue); box-shadow: 0 8px 20px rgba(0,0,0,0.4); position: relative; overflow: hidden; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .player-name-tag { font-weight: 700; font-size: 1.2rem; color: #fff; }
+        .total-score { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.02em; }
+        .score-positive { color: var(--accent-green); text-shadow: 0 0 15px rgba(16, 185, 129, 0.3); }
+        .score-negative { color: var(--danger-red); text-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+        .score-history { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; padding: 8px 0; border-top: 1px solid rgba(255,255,255,0.05); }
+        .history-badge { background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 10px; font-size: 0.8rem; font-weight: 700; color: var(--text-gray); border: 1px solid rgba(255,255,255,0.03); }
+        .history-badge.positive { color: var(--accent-green); background: rgba(16, 185, 129, 0.1); }
+        .history-badge.negative { color: var(--danger-red); background: rgba(239, 68, 68, 0.1); }
+
+        .btn-main { width: 100%; padding: 18px; border-radius: 16px; border: none; font-weight: 800; font-size: 1.1rem; cursor: pointer; margin-bottom: 12px; transition: all 0.3s ease; }
+        .btn-start { background: linear-gradient(to bottom, #3b82f6, #2563eb); color: white; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
+        .btn-end-round { background: linear-gradient(to bottom, #fbbf24, #d97706); color: #000; box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4); }
+        .btn-submit-all { background: linear-gradient(to bottom, #10b981, #059669); color: white; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); }
+        .btn-individual { background: var(--accent-green); color: white; padding: 12px; border-radius: 10px; border: none; font-weight: bold; }
+        .btn-cheat-global { background: rgba(239, 68, 68, 0.15); color: var(--danger-red); border: 1px solid var(--danger-red); width: 100%; padding: 14px; border-radius: 14px; font-weight: bold; margin-bottom: 20px; cursor: pointer; }
+
+        .footer-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: auto; padding: 20px 0; }
+        .btn-footer { padding: 16px; border-radius: 14px; border: none; font-weight: bold; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+        .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; backdrop-filter: blur(8px); }
+        .modal-content { background: #1e293b; padding: 35px; border-radius: 28px; width: 100%; max-width: 400px; text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
+        .modal-selection-list { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .selection-btn { background: rgba(255,255,255,0.05); color: white; padding: 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); cursor: pointer; font-weight: bold; transition: 0.2s; }
+        .selection-btn:hover { background: var(--primary-blue); transform: translateY(-2px); }
+        
+        .log-card { background: linear-gradient(145deg, #1e293b, #111827); border-radius: 20px; padding: 20px; margin-bottom: 15px; border-right: 4px solid var(--royal-gold); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .log-grid { display: grid; grid-template-columns: 1fr auto; align-items: baseline; }
+        .log-game-name { font-weight: 800; color: var(--primary-blue); font-size: 1.2rem; }
+        .log-score { font-weight: 900; color: var(--accent-green); font-size: 1.4rem; }
+        .log-winner { font-size: 1rem; color: #fff; margin-top: 8px; font-weight: 600; }
+        .log-date { font-size: 0.75rem; color: var(--text-gray); grid-column: span 2; margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px; }
+
+        .empty-history { font-size: 0.85rem; color: var(--text-gray); opacity: 0.6; }

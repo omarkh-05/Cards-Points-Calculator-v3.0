@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مسجل نقاط الشدة الفاخر</title>
+    
+    <!-- App Icons (Favicons) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn-icons-png.flaticon.com/512/1041/1041935.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn-icons-png.flaticon.com/512/1041/1041935.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn-icons-png.flaticon.com/512/1041/1041935.png">
+    <meta name="apple-mobile-web-app-title" content="ScoreKeeper">
+    <meta name="application-name" content="ScoreKeeper">
+    <meta name="theme-color" content="#0a0f1e">
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div class="container">
+    <!-- Home View -->
+    <div id="home-view" class="view active">
+        <header>
+            <h1>مسجل النقاط الفاخر</h1>
+            <p style="color: var(--text-gray); font-size: 0.95rem; margin-top: 8px;">اختر اللعبة وابدأ التنافس</p>
+        </header>
+        <div class="game-menu">
+            <div class="game-btn" onclick="GAME_ENGINE.initGame('trix', 'تركس 🃏')">تركس</div>
+            <div class="game-btn" onclick="GAME_ENGINE.initGame('complex', 'كومبليكس 💎')">كومبليكس</div>
+            <div class="game-btn" onclick="GAME_ENGINE.initGame('tarneeb', 'طرنيب ♠️')">طرنيب</div>
+            <div class="game-btn" onclick="GAME_ENGINE.initGame('hand', 'هاند ♦️')">هاند</div>
+            <div class="game-btn history-btn" onclick="UI_RENDERER.showLogsView()">سجل اللعب الأخير 📜</div>
+        </div>
+    </div>
+
+    <!-- Logs View -->
+    <div id="logs-view" class="view">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <button onclick="UI_RENDERER.switchView('home')" style="background:var(--surface-glass); border:1px solid rgba(255,255,255,0.1); color:white; padding:8px 18px; border-radius:12px; cursor:pointer; font-weight:bold;">الرئيسية</button>
+            <h2 style="margin:0; font-size: 1.5rem; color: var(--royal-gold);">سجل الأبطال</h2>
+            <div style="width:60px"></div>
+        </div>
+        <div id="logs-list"></div>
+    </div>
+
+    <!-- Game View -->
+    <div id="game-view" class="view">
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+            <button onclick="GAME_ENGINE.confirmExit()" style="background:var(--surface-glass); border:1px solid rgba(255,255,255,0.1); color:white; padding:8px 18px; border-radius:12px; cursor:pointer;">خروج</button>
+            <h2 id="current-game-title" style="margin:0; font-size: 1.5rem;"></h2>
+            <div style="width:60px"></div>
+        </div>
+
+        <div id="mode-selector" class="section-box">
+            <label>طريقة اللعب</label>
+            <div class="mode-container">
+                <button id="mode-normal" class="mode-btn active" onclick="GAME_ENGINE.handleModeSwitch('normal')">👤 أفراد</button>
+                <button id="mode-team" class="mode-btn" onclick="GAME_ENGINE.handleModeSwitch('team')">👥 شراكة</button>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <label>إضافة لاعبين</label>
+            <div class="add-player-box">
+                <input type="text" id="player-input" placeholder="اكتب اسم اللاعب هنا...">
+                <button class="btn-plus" onclick="GAME_ENGINE.addPlayer()">+</button>
+            </div>
+            
+            <div id="kingdom-section" style="display:none; margin-top:15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                <label>نوع المملكة الحالية:</label>
+                <select id="kingdom-select" onchange="UI_RENDERER.renderPlayers()"></select>
+            </div>
+        </div>
+
+        <button id="btn-round-control" class="btn-main btn-start" onclick="GAME_ENGINE.toggleRound()">بدأ الجولة الجديدة 🚀</button>
+
+        <button id="tarneeb-cheat-btn" class="btn-cheat-global" style="display:none;" onclick="GAME_ENGINE.openTarneebCheatModal()">فريق غش؟ (خصم 5) 🕵️‍♂️</button>
+
+        <div id="players-list"></div>
+
+        <div id="bulk-action-container" style="display:none; margin: 20px 0;">
+            <button class="btn-main btn-submit-all" onclick="GAME_ENGINE.submitAllScores()">تثبيت نقاط الجولة ✅</button>
+        </div>
+
+        <div class="footer-controls">
+            <button class="btn-footer" style="background:var(--surface-glass); color:var(--royal-gold); border: 1px solid var(--royal-gold);" onclick="GAME_ENGINE.showWinner()">🏆 المتصدر</button>
+            <button class="btn-footer" style="background:var(--danger-red); color:white" onclick="GAME_ENGINE.confirmEndGame()">🏁 إنهاء وقفل</button>
+        </div>
+    </div>
+</div>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <h2 id="modal-title" style="margin-top:0; color: #fff;"></h2>
+        <p id="modal-body" style="color: var(--text-gray); margin-bottom: 30px; line-height: 1.6;"></p>
+        <div id="modal-selection" class="modal-selection-list"></div>
+        <div id="modal-btns" style="display:flex; gap:15px; margin-top: 10px;"></div>
+    </div>
+</div>
+
+<script src="./script.js"></script>
+</body>
+</html>
